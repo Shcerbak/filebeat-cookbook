@@ -35,7 +35,7 @@ default['filebeat']['prospectors']['test2'] = {
     'prospectors' => [
       {
         'paths' => [
-          '/var/log/test2/*.log'
+          '/var/log/test2/test.log'
         ],
         'input_type' => 'log',
         'document_type' => 'test2',
@@ -43,7 +43,12 @@ default['filebeat']['prospectors']['test2'] = {
           'environment' => node.chef_environment,
           'instance_type' => 'test2'
         },
-        'fields_under_root' => true
+        'fields_under_root' => true,
+        'multiline' => {
+          'pattern' => '^20[0-9][0-9]\-[0-1][0-9]\-[0-3][0-9]',
+          'negate' => true,
+          'match' => 'after'
+        }
       }
     ]
   }
